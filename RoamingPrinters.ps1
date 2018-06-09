@@ -28,7 +28,7 @@ function Invoke-SQL {
         [string]$sqlCommand = $(throw "Please specify a query.")
     )
 
-    $connectionString = "Server=$dataSource;Database=$database;User Id=WTSROUser;Password=Pr1nt3r2016;"
+    $connectionString = "Server=$dataSource;Database=$database;User Id=WTSROUser;Password=*********;"
     
     $connection = new-object system.data.SqlClient.SQLConnection($connectionString)
     $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection)
