@@ -18,9 +18,9 @@ If (Test-Path $FailedPath)
             $messageParameters = @{ 
                 Subject = "Failed EPS Job on $LocalServer" 
                 Body = "New failed Job.   Log attached."
-                From = "EPSMonitor@midmichigan.org" 
-                To = "adam.buchanan@midmichigan.org"
-                SmtpServer = "smtp.midmichigan.net" 
+                From = "EPSMonitor@company.org" 
+                To = "arb@company.org"
+                SmtpServer = "smtp.company.net" 
                 Attachments = $FailedLogFile
             } 
 
