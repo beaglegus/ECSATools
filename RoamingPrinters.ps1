@@ -85,7 +85,7 @@ Else
 $Logfile = "\\midmichigan.net\epic\Scripts\RoamingPrinters\Logs\$Endpoint.log"
 
 # Gets default printer for $Endpoint
-$EndpointInfo = Invoke-SQL -dataSource "vwp-it-sql008.midmichigan.net" -database "WTSProd" -sqlCommand "SELECT WinDefaultPrinter FROM Locations WHERE ClientName='$Endpoint'"
+$EndpointInfo = Invoke-SQL -dataSource "vwp-it-sql008.company.net" -database "DB_Name" -sqlCommand "SELECT WinDefaultPrinter FROM Locations WHERE ClientName='$Endpoint'"
 $DefaultPrinter = $EndpointInfo.WinDefaultPrinter
 # Convert arr to str and remove space
 $DefaultPrinter = [string]$DefaultPrinter
@@ -93,7 +93,7 @@ $DefaultPrinter = $DefaultPrinter.Replace(' ','')
 
 
 # Gets backup printer for $Endpoint
-$EndpointInfo2 = Invoke-SQL -dataSource "vwp-it-sql008.midmichigan.net" -database "WTSProd" -sqlCommand "SELECT WinBackupPrinter FROM Locations WHERE ClientName='$Endpoint'"
+$EndpointInfo2 = Invoke-SQL -dataSource "server.company.net" -database "DB_name" -sqlCommand "SELECT WinBackupPrinter FROM Locations WHERE ClientName='$Endpoint'"
 $BackupPrinter = $EndpointInfo2.WinBackupPrinter
 # Convert arr to str and remove space
 $BackupPrinter = [string]$BackupPrinter
@@ -212,31 +212,3 @@ If ($BackupPrinter -and $BackupExists -ne 1)
         LogWrite "ERROR: Failed to add backup printer $BackupPrinter"
     }
 }
-
-
-
-
-
-
-<#
-
-# SQL queries saved for reference/reuse:
-# Note change DB name to "WTSProd" in below queries
-
-Invoke-SQL -dataSource "IRSQL01.midmichigan.net" -database "WtsLocation_copy" -sqlCommand "select @@version"
-
-Invoke-SQL -dataSource "IRSQL01.midmichigan.net" -database "WtsLocation_copy" -sqlCommand "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES"
-
-# Gets all columns
-Invoke-SQL -dataSource "IRSQL01.midmichigan.net" -database "WtsLocation_copy" -sqlCommand "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='Locations'"
-
-# Gets all endpoint names
-Invoke-SQL -dataSource "IRSQL01.midmichigan.net" -database "WTSProd" -sqlCommand "SELECT ClientName FROM Locations"
-
-# Gets all rows for endpoint
-Invoke-SQL -dataSource "IRSQL01.midmichigan.net" -database "WtsLocation_copy" -sqlCommand "SELECT * FROM Locations WHERE ClientName='$Endpoint'"
-
-# Gets default printer for $Endpoint
-Invoke-SQL -dataSource "IRSQL01.midmichigan.net" -database "WtsLocation_copy" -sqlCommand "SELECT Default_Printer FROM Locations WHERE ClientName='$Endpoint'"
-
-#>
